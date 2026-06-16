@@ -118,7 +118,7 @@ body {
 }
 .card-grid {
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
     justify-content: center;
     flex-wrap: wrap;
     margin: 2rem 0;
@@ -370,8 +370,21 @@ h2 {
     .portrait {
         flex: 0 0 140px;
     }
+    .hero-actions {
+        margin-bottom: 1.5rem;   /* 增加按钮组下方间距 */
+    }
     .hero-meta {
-        margin-top: 0;
+        position: absolute;
+        left: clamp(2rem, 6vw, 5.5rem);
+        bottom: clamp(1.2rem, 4vw, 3rem);
+        display: grid;
+        grid-template-columns: repeat(4, minmax(86px, 1fr));
+        gap: 0.75rem;
+        width: min(650px, calc(100% - 2.4rem));
+        z-index: 10;
+    }
+    .hero-stat {
+        padding: 0.6rem;
     }
 }
 
@@ -501,4 +514,121 @@ h2 {
 }
 .ai-chat-input-area button:hover {
     background: #9e2626;
+}
+/* 轮播容器 */
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    min-height: clamp(540px, 72vh, 780px);
+    background: linear-gradient(115deg, rgba(19,27,46,0.94) 0%, rgba(38,57,104,0.84) 54%, rgba(92,65,42,0.54) 100%);
+    border-radius: 34px;
+    overflow: hidden;
+    box-shadow: 0 28px 80px rgba(62,34,24,0.18);
+    isolation: isolate;
+}
+.carousel-slides {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out;
+    visibility: hidden;
+}
+.carousel-slide.active {
+    opacity: 1;
+    visibility: visible;
+    position: relative;
+}
+/* 第一页内容布局（复用原有 hero-content） */
+.hero-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 430px);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    padding: clamp(2rem, 6vw, 5.5rem);
+    height: 100%;
+}
+/* 第二页视频布局 */
+.video-slide-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 2rem;
+    text-align: center;
+}
+.video-container {
+    width: 80%;
+    max-width: 800px;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    margin-bottom: 2rem;
+}
+.video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.video-caption h3 {
+    color: #ffe7c0;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+.video-caption p {
+    color: rgba(255,255,255,0.85);
+    font-size: 1.1rem;
+}
+/* 轮播控制 */
+.carousel-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    z-index: 5;
+}
+.dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    margin: 0 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.dot.active {
+    background: #b32d2d;
+}
+.carousel-prev, .carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    z-index: 5;
+    border-radius: 50%;
+    line-height: 1;
+}
+.carousel-prev { left: 20px; }
+.carousel-next { right: 20px; }
+@media (max-width: 900px) {
+    .hero-content { grid-template-columns: 1fr; text-align: center; }
+    .video-container { width: 95%; }
+    .carousel-prev, .carousel-next { font-size: 1.5rem; padding: 0.2rem 0.8rem; }
 }
